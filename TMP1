@@ -1,0 +1,36 @@
+@startuml
+
+actor "Админ" as User
+actor "Сотрудник1" as User1
+actor "Сотрудник2" as User2
+actor "Сотрудник3" as User3
+actor "Технический специалист" as User4
+actor "Студент1" as User5
+actor "Абитуриент" as User6
+actor "Студент2" as User7
+
+rectangle "Информационная система деканата" {
+    usecase "Сервер БД" as server
+    usecase "Основная база данных" as BD
+    usecase "База данных учета успеваемости" as BD2
+    
+    User1 --> User6: прием абитуриента
+    server --> BD
+    BD --> server
+    server --> BD2
+    BD2 --> server
+    User --> server: настройка работы системы
+    User1 --> User7: отчисление студента
+    User1 --> User4: передача информации о зачислении/отчислении студента
+    User4 --> BD: внесение информации в БД
+    User3 --> BD2: внесение инф-ии об успеваемости
+    BD2 --> User3
+    User3 --> User1
+    User1 --> User3: передача инф-ии об успеваемости
+    User3 --> User2: передача инф-ии об успеваемости
+    User2 --> User5: перевод студента на следующий курс
+    User2 --> User4: передача инф-ии о переводе студента
+    User5 --> User1: сдача зачетной книжки в УО
+    
+    
+@enduml
