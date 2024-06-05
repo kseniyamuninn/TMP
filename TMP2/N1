@@ -1,0 +1,45 @@
+@startuml
+actor "Админ" as Admin
+actor "Сотрудник1" as Staff1
+actor "Сотрудник2" as Staff2
+actor "Сотрудник3" as Staff3
+actor "Технический специалист" as TechSpecialist
+actor "Студент1" as Student1
+actor "Абитуриент" as Applicant
+actor "Студент2" as Student2
+
+participant "Информационная система деканата" as System
+participant "Сервер БД" as Server
+participant "Основная база данных" as MainDB
+participant "База данных учета успеваемости" as PerformanceDB
+
+Staff1 -> Applicant: Прием абитуриента
+Staff1 -> System: Внести данные абитуриента
+System -> Server: Сохранить данные
+Server -> MainDB: Внести данные
+
+Staff1 -> Student2: Отчисление студента
+Staff1 -> System: Удалить данные студента
+System -> Server: Удалить данные
+Server -> MainDB: Удалить данные
+
+TechSpecialist -> System: Получить информацию о зачислении/отчислении
+System -> Server: Запрос данных
+Server -> MainDB: Получить данные
+MainDB -> Server: Отправить данные
+Server -> TechSpecialist: Передать данные
+
+Staff3 -> System: Внести данные об успеваемости
+System -> Server: Сохранить данные
+Server -> PerformanceDB: Внести данные
+PerformanceDB -> Server: Подтвердить сохранение
+Server -> Staff3: Подтвердить сохранение
+
+Staff1 -> Staff3: Передать информацию об успеваемости
+Staff3 -> Staff2: Передать информацию об успеваемости
+Staff2 -> System: Перевести студента на следующий курс
+System -> Server: Обновить данные
+Server -> MainDB: Обновить данные
+MainDB -> Server: Подтвердить обновление
+Server -> Staff2: Подтвердить обновление
+@enduml
