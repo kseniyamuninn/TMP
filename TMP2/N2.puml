@@ -1,0 +1,16 @@
+@startuml
+node "Деканат" {
+    component "Информационная система деканата" as System
+}
+
+node "Серверная" {
+    [Сервер БД] as Server
+    database "Основная база данных" as MainDB
+    database "База данных учета успеваемости" as PerformanceDB
+}
+
+System -down-> Server: Взаимодействие
+Server -down-> MainDB: Сохранение/Обновление/Удаление данных
+Server -down-> PerformanceDB: Сохранение данных об успеваемости
+
+@enduml
